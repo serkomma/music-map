@@ -1,3 +1,3 @@
 plugins {
-    id("build-jvm")
+//    id("build-kmp")
 }

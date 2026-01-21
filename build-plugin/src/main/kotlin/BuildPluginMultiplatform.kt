@@ -1,4 +1,4 @@
-package ru.serkomma.musicmap.plugin
+package com.serkomma.musicmap.plugin
 
 import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.Plugin
