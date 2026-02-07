@@ -1,10 +1,8 @@
 plugins {
-    id("build-jvm")
-    alias(libs.plugins.kotlin.jvm) apply false
-    alias(libs.plugins.kotlin.multiplatform) apply false
+    id("multiplatform")
 }
 
-group = "com.serkomma"
+group = "com.serkomma.musicmap"
 version = "0.1"
 
 allprojects {
@@ -16,4 +14,14 @@ allprojects {
 subprojects {
     group = rootProject.group
     version = rootProject.version
+}
+
+dependencies {
+    commonMainImplementation(project(":music-map-api"))
+    commonMainImplementation(project(":music-map-common"))
+}
+
+ext {
+    val specDir = layout.projectDirectory.dir("../specs")
+    set("spec-v1", specDir.file("specs-card-v1.yaml").toString().replace("\\", "/"))
 }

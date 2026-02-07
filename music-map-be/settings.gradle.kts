@@ -11,8 +11,8 @@ dependencyResolutionManagement {
 pluginManagement {
     includeBuild("../build-plugin")
     plugins {
-        id("build-jvm") apply false
-        id("build-kmp") apply false
+//        id("build-kmp") apply false
+        id("multiplatform") apply false
     }
     repositories {
         mavenCentral()
@@ -21,3 +21,6 @@ pluginManagement {
 }
 
 include(":music-map-tmp")
+include(":music-map-api")
+include(":music-map-common")
+include(":music-map-stubs")

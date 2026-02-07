@@ -1,0 +1,525 @@
+openapi: 3.1.0
+info:
+  title: Musical Service
+  description: Place to find bands around
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/v1
+tags:
+  - name: card
+    description: Musician Card
+paths:
+  /card/create:
+    post:
+      tags:
+        - card
+      summary: Create card
+      operationId: cardCreate
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardCreateRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardCreateResponse'
+
+  /card/read:
+    post:
+      tags:
+        - card
+      summary: Read card
+      operationId: cardRead
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardReadRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardReadResponse'
+
+  /card/update:
+    post:
+      tags:
+        - card
+      summary: Update card
+      operationId: cardUpdate
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardUpdateRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardUpdateResponse'
+
+  /card/delete:
+    post:
+      tags:
+        - card
+      summary: Delete card
+      operationId: adDelete
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardDeleteRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardDeleteResponse'
+
+  /card/search:
+    post:
+      tags:
+        - card
+      summary: Search card
+      operationId: adSearch
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardSearchRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardSearchResponse'
+
+  /ad/offers:
+    post:
+      tags:
+        - card
+      summary: Search musician offers
+      operationId: adOffers
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardOffersRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardOffersResponse'
+
+components:
+  schemas:
+    IRequest:
+      type: object
+      description: Base request interface
+      properties:
+        requestType:
+          type: string
+          description: Field to determine request type
+          example: create
+      discriminator:
+        propertyName: requestType
+        mapping:
+          create: '#/components/schemas/CardCreateRequest'
+          read:   '#/components/schemas/CardReadRequest'
+          update: '#/components/schemas/CardUpdateRequest'
+          delete: '#/components/schemas/CardDeleteRequest'
+          search: '#/components/schemas/CardSearchRequest'
+          offers: '#/components/schemas/CardOffersRequest'
+
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        group:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+
+    ResponseResult:
+      type: string
+      enum:
+        - success
+        - error
+
+    IResponse:
+      type: object
+      description: Base response interface
+      properties:
+        responseType:
+          type: string
+          description: Field to determine response type
+          example: create
+        result:
+          $ref: '#/components/schemas/ResponseResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+
+      discriminator:
+        propertyName: responseType
+        mapping:
+          create: '#/components/schemas/CardCreateResponse'
+          read:   '#/components/schemas/CardReadResponse'
+          update: '#/components/schemas/CardUpdateResponse'
+          delete: '#/components/schemas/CardDeleteResponse'
+          search: '#/components/schemas/CardSearchResponse'
+          offers: '#/components/schemas/CardOffersResponse'
+          init: '#/components/schemas/CardInitResponse'
+
+    CardRequestDebugMode:
+      type: string
+      enum:
+        - prod
+        - test
+        - stub
+
+    CardRequestDebugStubs:
+      type: string
+      description: Stubs kinds
+      enum:
+        - success
+        - notFound
+        - badId
+        - badTitle
+        - badDescription
+        - badVisibility
+        - cannotDelete
+        - badSearchString
+
+    CardDebug:
+      type: object
+      properties:
+        mode:
+          $ref: '#/components/schemas/CardRequestDebugMode'
+        stub:
+          $ref: '#/components/schemas/CardRequestDebugStubs'
+
+    CardRequestDebug:
+      type: object
+      properties:
+        debug:
+          $ref: '#/components/schemas/CardDebug'
+
+    Genre:
+      type: string
+      description: Music genre
+      enum:
+        - rock
+        - pop
+        - electronic
+#        - ...
+
+    StreamingService:
+      type: string
+      description: Streaming service
+      enum:
+        - spotify
+        - appleMusic
+        - yandexMusic
+        - vkMusic
+#        - ...
+
+    CardVisibility:
+      type: string
+      enum:
+        - private
+        - public
+
+    StreamingInfo:
+      type: object
+      description: Streaming services
+      properties:
+        service:
+          type: string
+          description: Streaming service name
+        link:
+          type: string
+          description: Link to streaming service
+
+    GeoInfo:
+      type: object
+      description: Musician coordinates
+      properties:
+        latitude:
+          type: double
+          description: Latitude
+        longitude:
+          type: double
+          description: Longitude
+
+    BaseCard:
+      type: object
+      description: Card common properties
+      properties:
+        title:
+          type: string
+          description: Musician's name
+        description:
+          type: string
+        message:
+          type: string
+          description: Musician's message
+        genre:
+          $ref: '#/components/schemas/Genre'
+        streaming:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/StreamingInfo'
+        place:
+          $ref: '#/components/schemas/GeoInfo'
+        visibility:
+          $ref: '#/components/schemas/CardVisibility'
+
+    CardCreateObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseCard'
+
+    CardCreateRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/CardRequestDebug'
+        - type: object
+          properties:
+            card:
+              $ref: '#/components/schemas/CardCreateObject'
+
+    UserId:
+      type: long
+      description: User ID
+    CardId:
+      type: long
+      description: Card ID
+    CardLock:
+      type: string
+      description: Optimistic lock
+
+    CardPermissions:
+      type: string
+      description: Permissions for card operations
+      enum:
+        - read
+        - update
+        - delete
+        - makeVisiblePublic
+        - makeVisiblePrivate
+
+    CardResponseObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseCard'
+        - type: object
+          description: Response object
+          properties:
+            id:
+              $ref: '#/components/schemas/CardId'
+            ownerId:
+              $ref: '#/components/schemas/UserId'
+            lock:
+              $ref: '#/components/schemas/CardLock'
+            permissions:
+              type: array
+              uniqueItems: true
+              items:
+                $ref: '#/components/schemas/CardPermissions'
+
+    CardResponseSingle:
+      allOf:
+        - type: object
+          description: Response with one card
+          properties:
+            card:
+              $ref: '#/components/schemas/CardResponseObject'
+
+    CardCreateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/CardResponseSingle'
+
+    CardReadObject:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/CardId'
+
+    CardReadRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/CardRequestDebug'
+        - type: object
+          properties:
+            card:
+              $ref: '#/components/schemas/CardReadObject'
+
+    CardReadResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/CardResponseSingle'
+
+    CardUpdateObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseCard'
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/CardId'
+            lock:
+              $ref: '#/components/schemas/CardLock'
+
+    CardUpdateRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/CardRequestDebug'
+        - type: object
+          properties:
+            card:
+              $ref: '#/components/schemas/CardUpdateObject'
+
+    CardUpdateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/CardResponseSingle'
+
+    CardDeleteObject:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/CardId'
+            lock:
+              $ref: '#/components/schemas/CardLock'
+
+    CardDeleteRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/CardRequestDebug'
+        - type: object
+          properties:
+            card:
+              $ref: '#/components/schemas/CardDeleteObject'
+
+    CardDeleteResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/CardResponseSingle'
+
+    FilterStore:
+      type: object
+      properties:
+        field:
+          type: string
+        operator:
+          type: string
+        values:
+          type: array
+          items:
+            type: string
+
+    SorterStore:
+      type: object
+      properties:
+        property:
+          type: string
+        direction:
+          type: string
+          enum:
+            - ASC
+            - DESC
+
+    SearchRequest:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int32
+        page:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SorterStore'
+        filter:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterStore'
+
+    CardSearchFilter:
+      type: object
+      description: Search filters
+      properties:
+        searchString:
+          type: string
+        request:
+          $ref: '#/components/schemas/SearchRequest'
+
+    CardSearchRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/CardRequestDebug'
+        - type: object
+          properties:
+            cardFilter:
+              $ref: '#/components/schemas/CardSearchFilter'
+
+    CardResponseMulti:
+      allOf:
+        - type: object
+          description: List of found objects
+          properties:
+            cards:
+              type: array
+              items:
+                $ref: '#/components/schemas/CardResponseObject'
+
+    CardSearchResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/CardResponseMulti'
+
+    CardOffersRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/CardRequestDebug'
+
+    CardOffersResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/CardResponseSingle'
+        - $ref: '#/components/schemas/CardResponseMulti'
+
+    CardInitResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'

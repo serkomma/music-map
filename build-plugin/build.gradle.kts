@@ -4,13 +4,17 @@ plugins {
 
 gradlePlugin {
     plugins {
-        register("build-jvm") {
-            id = "build-jvm"
-            implementationClass = "ru.serkomma.musicmap.plugin.BuildPluginJvm"
-        }
-        register("build-kmp") {
-            id = "build-kmp"
-            implementationClass = "ru.serkomma.musicmap.plugin.BuildPluginMultiplatform"
+//        register("build-jvm") {
+//            id = "build-jvm"
+//            implementationClass = "com.serkomma.musicmap.plugin.BuildPluginJvm"
+//        }
+//        register("build-kmp") {
+//            id = "build-kmp"
+//            implementationClass = "com.serkomma.musicmap.plugin.BuildPluginMultiplatform"
+//        }
+        register("multiplatform") {
+            id = "multiplatform"
+            implementationClass = "com.serkomma.musicmap.plugin.BuildMultiplatform"
         }
     }
 }
