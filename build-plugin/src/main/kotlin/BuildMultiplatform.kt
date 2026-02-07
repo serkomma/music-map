@@ -44,7 +44,7 @@ class BuildMultiplatform : Plugin<Project> {
                     }
                     binaries {
                         executable {
-                            entryPoint = "com.serkomma.musicmap.main"
+                            entryPoint = "com.serkomma.musicmap.app.ktor.main"
                         }
                     }
                 }
@@ -60,9 +60,10 @@ class BuildMultiplatform : Plugin<Project> {
                         }
                     }
                     mainRun {
-                        mainClass.set("com.serkomma.musicmap.MainKt")
+                        mainClass.set("com.serkomma.musicmap.app.ktor.ApplicationKt")
                     }
                 }
+                linuxX64()
             }
         }
     }

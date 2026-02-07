@@ -1,4 +1,3 @@
-
 group = "com.serkomma.musicmap"
 version = "0.1"
 

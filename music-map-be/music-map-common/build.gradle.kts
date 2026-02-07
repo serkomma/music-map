@@ -1,6 +1,5 @@
 plugins {
-//    id("build-kmp")
-    id("multiplatform")
+    id("multiplatform-plugin")
 }
 
 group = "com.serkomma"
@@ -14,9 +13,9 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(kotlin("stdlib-jdk8"))
-                api("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
+                implementation(libs.kotlinx.datetime)
                 implementation(libs.kotlinx.serialization.json)
+                api("com.serkomma.musicmap.libs:music-map-lib-logging-common")
             }
         }
     }

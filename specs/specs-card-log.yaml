@@ -1,0 +1,144 @@
+openapi: 3.0.4
+info:
+  title: Application log models
+  description: Log models for logging services of application
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+paths: {}
+
+components:
+  schemas:
+    CommonLogModel:
+      title: Common model log
+      description: Common model log for al microservices
+      type: object
+      properties:
+        messageTime:
+          type: string
+        logId:
+          type: string
+        source:
+          type: string
+        card:
+          $ref: '#/components/schemas/CardLogModel'
+        #        comments:
+        #          $ref: '#/components/schemas/CommentsLogModel'
+        #        files:
+        #          $ref: '#/components/schemas/FilesLogModel'
+        #        images:
+        #          $ref: '#/components/schemas/ImagesLogModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorLogModel'
+
+    CardLogModel:
+      title: Musician card microservice model log
+      type: object
+      properties:
+        requestId:
+          type: string
+        operation:
+          $ref: '#/components/schemas/CardLogOperation'
+        requestAd:
+          $ref: '#/components/schemas/CardLog'
+        requestFilter:
+          $ref: '#/components/schemas/CardFilterLog'
+        responseAd:
+          $ref: '#/components/schemas/CardLog'
+        responseAds:
+          type: array
+          items:
+            $ref: '#/components/schemas/CardLog'
+
+    CardLogOperation:
+      type: string
+      enum:
+        - create
+        - read
+        - update
+        - delete
+        - search
+        - offers
+        - init
+        - finish
+
+    ErrorLogModel:
+      title: Error model log
+      type: object
+      properties:
+        message:
+          type: string
+        field:
+          type: string
+        code:
+          type: string
+        level:
+          type: string
+
+    CardLog:
+      title: Musician card model log
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        message:
+          type: string
+        genre:
+          type: string
+        streaming:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        place:
+          type: string
+        visibility:
+          type: string
+        ownerId:
+          type: string
+        permissions:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+
+    CardFilterLog:
+      title: Filter log model
+      properties:
+        searchString:
+          type: string
+        request:
+          $ref: '#/components/schemas/CommonSearchLog'
+
+    CommonSearchLog:
+      title: Search model log
+      type: object
+      properties:
+        limit:
+          type: string
+        page:
+          type: string
+        sort:
+          type: string
+        filter:
+            $ref: '#/components/schemas/CommonFilterLog'
+
+    CommonFilterLog:
+      type: object
+      properties:
+        field:
+          type: string
+        operator:
+          type: string
+        values:
+          type: array
+          items:
+            type: string
+

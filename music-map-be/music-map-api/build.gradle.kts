@@ -1,9 +1,9 @@
 import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
 
 plugins {
-    id("multiplatform")
+    id("multiplatform-plugin")
     kotlin("plugin.serialization") version "2.2.0"
-    id("org.openapi.generator") version "7.17.0"
+    alias(libs.plugins.openapi.generator)
 }
 
 group = "com.serkomma"
@@ -15,7 +15,7 @@ repositories {
 
 kotlin {
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             kotlin.srcDirs(layout.buildDirectory.dir("generate-resources/src/commonMain/kotlin"))
             dependencies {
                 implementation(libs.kotlinx.serialization.json)

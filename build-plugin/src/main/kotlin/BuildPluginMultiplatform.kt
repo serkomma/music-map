@@ -10,6 +10,7 @@ import org.gradle.kotlin.dsl.repositories
 import org.gradle.kotlin.dsl.the
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 @Suppress("unused")
 internal class BuildPluginMultiplatform : Plugin<Project> {
@@ -47,8 +48,10 @@ private fun KotlinMultiplatformExtension.configureTargets(project: Project) {
 
     jvm {
         compilations.configureEach {
-            compilerOptions.configure {
-                jvmTarget.set(JvmTarget.valueOf("JVM_${libs.versions.jvm.compiler.get()}"))
+            compileTaskProvider.configure {
+                compilerOptions {
+                    jvmTarget.set(JvmTarget.valueOf("JVM_${libs.versions.jvm.compiler.get()}"))
+                }
             }
         }
     }
@@ -58,5 +61,10 @@ private fun KotlinMultiplatformExtension.configureTargets(project: Project) {
     project.tasks.withType(JavaCompile::class.java) {
         sourceCompatibility = libs.versions.jvm.language.get()
         targetCompatibility = libs.versions.jvm.compiler.get()
+    }
+    project.tasks.withType(KotlinJvmCompile::class.java).configureEach {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.valueOf("JVM_" + libs.versions.jvm.compiler.get()))
+        }
     }
 }

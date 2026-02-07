@@ -15,11 +15,11 @@ import com.serkomma.musicmap.common.models.MusicError
 import com.serkomma.musicmap.common.models.MusicRequestId
 import com.serkomma.musicmap.common.models.MusicState
 import com.serkomma.musicmap.common.models.MusicUserId
-import com.serkomma.musicmap.mappers.fromTransport
-import com.serkomma.musicmap.mappers.toTransport
-import com.serkomma.musicmap.mappers.toTransportCreateCard
-import com.serkomma.musicmap.mappers.toTransportDeleteCard
-import com.serkomma.musicmap.mappers.toTransportUpdateCard
+import com.serkomma.musicmap.api.mappers.fromTransport
+import com.serkomma.musicmap.api.mappers.toTransport
+import com.serkomma.musicmap.api.mappers.toTransportCreateCard
+import com.serkomma.musicmap.api.mappers.toTransportDeleteCard
+import com.serkomma.musicmap.api.mappers.toTransportUpdateCard
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

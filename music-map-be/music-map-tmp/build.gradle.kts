@@ -1,3 +1,3 @@
 plugins {
-//    id("build-kmp")
+//    id("multiplatform-plugin")
 }
