@@ -8,7 +8,7 @@ import com.serkomma.models.Genre
 import com.serkomma.models.GeoInfo
 import com.serkomma.models.IRequest
 import com.serkomma.models.StreamingInfo
-import com.serkomma.musicmap.apiMapper
+import com.serkomma.musicmap.api.apiMapper
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals

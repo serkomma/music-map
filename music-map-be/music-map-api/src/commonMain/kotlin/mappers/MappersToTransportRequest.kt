@@ -1,4 +1,4 @@
-package com.serkomma.musicmap.mappers
+package com.serkomma.musicmap.api.mappers
 
 import com.serkomma.models.CardCreateObject
 import com.serkomma.models.CardDeleteObject

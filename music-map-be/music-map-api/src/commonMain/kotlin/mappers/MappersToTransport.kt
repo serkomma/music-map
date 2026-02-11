@@ -1,4 +1,4 @@
-package com.serkomma.musicmap.mappers
+package com.serkomma.musicmap.api.mappers
 
 import com.serkomma.models.CardCreateResponse
 import com.serkomma.models.CardDeleteResponse

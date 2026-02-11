@@ -1,5 +1,5 @@
 plugins {
-    id("multiplatform")
+    id("multiplatform-plugin")
 }
 
 group = "com.serkomma"

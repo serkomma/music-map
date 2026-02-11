@@ -4,6 +4,9 @@ import com.serkomma.musicmap.common.models.MusicCardLock
 import com.serkomma.musicmap.common.models.MusicCardPermissionClient
 import com.serkomma.musicmap.common.models.MusicCardVisibility
 import com.serkomma.musicmap.common.models.MusicGenre
+import com.serkomma.musicmap.common.models.MusicGeoInfo
+import com.serkomma.musicmap.common.models.MusicGeoLatitude
+import com.serkomma.musicmap.common.models.MusicGeoLongitude
 import com.serkomma.musicmap.common.models.MusicStreamingInfo
 import com.serkomma.musicmap.common.models.MusicStreamingService
 import com.serkomma.musicmap.common.models.MusicUserId
@@ -27,7 +30,10 @@ object CardStub {
                     link = "https://spotify.com/muse"
                 )
             ),
-//            geoInfo = ,
+            geoInfo = MusicGeoInfo(
+                latitude = MusicGeoLatitude(20.02),
+                longitude = MusicGeoLongitude(40.04),
+            ),
             visibility = MusicCardVisibility.PUBLIC,
             lock = MusicCardLock("Lock"),
             permissionsClient = mutableSetOf(

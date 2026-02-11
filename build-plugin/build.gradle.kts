@@ -12,8 +12,8 @@ gradlePlugin {
 //            id = "build-kmp"
 //            implementationClass = "com.serkomma.musicmap.plugin.BuildPluginMultiplatform"
 //        }
-        register("multiplatform") {
-            id = "multiplatform"
+        register("multiplatform-plugin") {
+            id = "multiplatform-plugin"
             implementationClass = "com.serkomma.musicmap.plugin.BuildMultiplatform"
         }
     }
