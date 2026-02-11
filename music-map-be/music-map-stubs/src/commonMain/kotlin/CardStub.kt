@@ -1,4 +1,5 @@
 import com.serkomma.musicmap.common.models.MusicCard
+import com.serkomma.musicmap.common.models.MusicCardFilter
 import com.serkomma.musicmap.common.models.MusicCardId
 import com.serkomma.musicmap.common.models.MusicCardLock
 import com.serkomma.musicmap.common.models.MusicCardPermissionClient
@@ -15,6 +16,10 @@ object CardStub {
     fun get() = CARD_MUSE
 
     fun prepareResult(block: MusicCard.() -> Unit): MusicCard = get().apply(block)
+
+    fun prepareSearchList(filter: MusicCardFilter) = MUSIC_CARD_LIST
+
+    fun prepareOffersList() = MUSIC_CARD_LIST
 
     private val CARD_MUSE: MusicCard
         get() = MusicCard(
@@ -44,4 +49,27 @@ object CardStub {
                 MusicCardPermissionClient.MAKE_VISIBLE_PRIVATE,
             )
         )
+    private val MUSIC_CARD_LIST = listOf(
+        MusicCard(
+            id = MusicCardId(1),
+            title = "First band",
+            description = "Description",
+            genre = MusicGenre.entries.toTypedArray().random(),
+            geoInfo = MusicGeoInfo(MusicGeoLatitude(20.0), MusicGeoLongitude(-20.0)),
+        ),
+        MusicCard(
+            id = MusicCardId(1),
+            title = "Second band",
+            description = "Description",
+            genre = MusicGenre.entries.toTypedArray().random(),
+            geoInfo = MusicGeoInfo(MusicGeoLatitude(40.0), MusicGeoLongitude(-40.0)),
+        ),
+        MusicCard(
+            id = MusicCardId(1),
+            title = "Third band",
+            description = "Description",
+            genre = MusicGenre.entries.toTypedArray().random(),
+            geoInfo = MusicGeoInfo(MusicGeoLatitude(60.0), MusicGeoLongitude(-60.0)),
+        )
+    )
 }

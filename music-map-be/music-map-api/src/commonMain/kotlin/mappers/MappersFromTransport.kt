@@ -15,6 +15,7 @@ import com.serkomma.models.CardSearchRequest
 import com.serkomma.models.CardUpdateObject
 import com.serkomma.models.CardUpdateRequest
 import com.serkomma.models.CardVisibility
+import com.serkomma.models.FilterStore
 import com.serkomma.models.Genre
 import com.serkomma.models.GeoInfo
 import com.serkomma.musicmap.common.MusicContext
@@ -28,6 +29,7 @@ import com.serkomma.musicmap.common.models.MusicCardId
 import com.serkomma.musicmap.common.models.MusicCardLock
 import com.serkomma.musicmap.common.models.MusicCardVisibility
 import com.serkomma.musicmap.common.models.MusicCommand
+import com.serkomma.musicmap.common.models.MusicFilterStore
 import com.serkomma.musicmap.common.models.MusicGenre
 import com.serkomma.musicmap.common.models.MusicGeoInfo
 import com.serkomma.musicmap.common.models.MusicGeoLatitude
@@ -176,9 +178,17 @@ private fun SearchRequest?.fromTransport() =
         MusicSearchRequest(
             limit = limit ?: Int.MAX_VALUE,
             page = page ?: 1,
-            sort = sort.fromTransport()
+            sort = sort.fromTransport(),
+            filter = filter?.map { it.fromTransport() }?.toMutableList() ?: mutableListOf(),
         )
     } ?: MusicSearchRequest.NONE
+
+private fun FilterStore.fromTransport() =
+    MusicFilterStore(
+        field = field ?: "",
+        operator = operator ?: "",
+        values = propertyValues?.map { it }?.toMutableList() ?: mutableListOf(),
+    )
 
 private fun SorterStore?.fromTransport() =
     this?.let {
