@@ -2,8 +2,46 @@
 
 services:
 
-  app:
+  postgres:
+    image: postgres
+    container_name: postgresql
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: musicmap
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app-jvm:
     build:
-        dockerfile: Dockerfile
+      dockerfile: docker-jvm/Dockerfile
     ports:
       - "8080:8080"
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+
+  app-native:
+    build:
+      dockerfile: docker-native/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+
+  liquibase:
+    build: ./music-map-be/music-map-repo-postgres/migrations
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

@@ -12,16 +12,17 @@ import com.serkomma.musicmap.common.models.MusicCardId
 import com.serkomma.musicmap.common.models.MusicCardVisibility
 import com.serkomma.musicmap.common.models.MusicError
 import com.serkomma.musicmap.common.models.MusicFilterStore
+import com.serkomma.musicmap.common.models.MusicGeoInfo
 import com.serkomma.musicmap.common.models.MusicRequestId
 import com.serkomma.musicmap.common.models.MusicSearchRequest
 import com.serkomma.musicmap.common.models.MusicUserId
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 
 
 fun MusicContext.toLog(logId: String) = CommonLogModel(
     messageTime = Clock.System.now().toString(),
     logId = logId,
-    source = "ok-marketplace",
+    source = "music-map",
     card = toLog(),
     errors = errors.map { it.toLog() },
 )
@@ -39,7 +40,10 @@ private fun MusicContext.toLog(): CardLogModel? {
 
 private fun MusicCardFilter.toLog() = CardFilterLog(
     searchString = searchString.takeIf { it.isNotBlank() },
-    request = searchRequest.takeIf { it != MusicSearchRequest.NONE }?.toLog()
+    request = filterRequest.takeIf { it != MusicSearchRequest.NONE }?.toLog(),
+    ownerId = ownerId.takeIf { it != MusicUserId.NONE }?.value?.toString(),
+    coordinatesFrom = coordinatesFrom.takeIf { it != MusicGeoInfo.NONE }?.toString(),
+    coordinatesTo = coordinatesTo.takeIf { it != MusicGeoInfo.NONE }?.toString(),
 )
 
 private fun MusicSearchRequest.toLog() = CommonSearchLog(

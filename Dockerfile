@@ -12,7 +12,7 @@ RUN gradle :music-map-be:music-map-app-ktor:jvmJar --no-daemon
 
 FROM amazoncorretto:25-alpine as app
 WORKDIR /app
-COPY --from=build /app/music-map-be/music-map-app-ktor/build/libs/*.jar application.jar
+COPY --from=build /app/music-map-be/music-map-app-ktor/build/libs/music-map-app-ktor-jvm-0.1.jar application.jar
 ENTRYPOINT ["java", "-jar", "application.jar"]
 
 #---------------------------------- For Kotlin Native --------------------------------

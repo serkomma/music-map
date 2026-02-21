@@ -22,32 +22,32 @@ class BuildMultiplatform : Plugin<Project> {
         plugins.withId("org.jetbrains.kotlin.multiplatform") {
             extensions.configure<KotlinMultiplatformExtension> {
                 val libs = project.the<LibrariesForLibs>()
-                val hostOs = System.getProperty("os.name")
-                val isMingwX64 = hostOs.startsWith("Windows")
-                val nativeTarget = when {
-                    hostOs == "Mac OS X" -> macosX64("native")
-                    hostOs == "Linux" -> linuxX64("native")
-                    isMingwX64 -> mingwX64("native")
-                    else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
-                }
-                nativeTarget.apply {
-                    compilations.getByName("main") {
-                        if(file("src/nativeInterop/cinterop/version.def").isFile) {
-                            cinterops {
-                                with(create("version")) {
-                                    definitionFile.set(file("src/nativeInterop/cinterop/version.def"))
-                                    includeDirs("${projectDir}/src/nativeInterop/cinterop")
-                                    compilerOpts.add("${projectDir}/src/nativeInterop/cinterop")
-                                }
-                            }
-                        }
-                    }
-                    binaries {
-                        executable {
-                            entryPoint = "com.serkomma.musicmap.app.ktor.main"
-                        }
-                    }
-                }
+//                val hostOs = System.getProperty("os.name")
+//                val isMingwX64 = hostOs.startsWith("Windows")
+//                val nativeTarget = when {
+//                    hostOs == "Mac OS X" -> macosX64("native")
+//                    hostOs == "Linux" -> linuxX64("native")
+//                    isMingwX64 -> mingwX64("native")
+//                    else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
+//                }
+//                nativeTarget.apply {
+//                    compilations.getByName("main") {
+//                        if(file("src/nativeInterop/cinterop/version.def").isFile) {
+//                            cinterops {
+//                                with(create("version")) {
+//                                    definitionFile.set(file("src/nativeInterop/cinterop/version.def"))
+//                                    includeDirs("${projectDir}/src/nativeInterop/cinterop")
+//                                    compilerOpts.add("${projectDir}/src/nativeInterop/cinterop")
+//                                }
+//                            }
+//                        }
+//                    }
+//                    binaries {
+//                        executable {
+//                            entryPoint = "com.serkomma.musicmap.app.ktor.main"
+//                        }
+//                    }
+//                }
 
                 jvmToolchain {
                     languageVersion.set(JavaLanguageVersion.of(libs.versions.jvm.language.get()))
@@ -63,7 +63,20 @@ class BuildMultiplatform : Plugin<Project> {
                         mainClass.set("com.serkomma.musicmap.app.ktor.ApplicationKt")
                     }
                 }
-                linuxX64()
+                linuxX64 {
+                    binaries {
+                        executable {
+                            entryPoint = "com.serkomma.musicmap.app.ktor.main"
+                        }
+                    }
+                }
+                mingwX64 {
+                    binaries {
+                        executable {
+                            entryPoint = "com.serkomma.musicmap.app.ktor.main"
+                        }
+                    }
+                }
             }
         }
     }

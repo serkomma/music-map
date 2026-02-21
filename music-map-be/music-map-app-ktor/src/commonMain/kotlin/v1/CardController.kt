@@ -24,28 +24,28 @@ import com.serkomma.musicmap.app.common.controllerHelper
 import com.serkomma.musicmap.app.ktor.AppSettings
 import kotlinx.serialization.Serializable
 
-val clCreate: KClass<*> = ApplicationCall::createAd::class
-suspend fun ApplicationCall.createAd(appSettings: AppSettings) =
+val clCreate: KClass<*> = ApplicationCall::createCard::class
+suspend fun ApplicationCall.createCard(appSettings: AppSettings) =
     processV1<CardCreateRequest, CardCreateResponse>(appSettings, clCreate,"create")
 
-val clRead: KClass<*> = ApplicationCall::readAd::class
-suspend fun ApplicationCall.readAd(appSettings: AppSettings) =
+val clRead: KClass<*> = ApplicationCall::readCard::class
+suspend fun ApplicationCall.readCard(appSettings: AppSettings) =
     processV1<CardReadRequest, CardReadResponse>(appSettings, clRead, "read")
 
-val clUpdate: KClass<*> = ApplicationCall::updateAd::class
-suspend fun ApplicationCall.updateAd(appSettings: AppSettings) =
+val clUpdate: KClass<*> = ApplicationCall::updateCard::class
+suspend fun ApplicationCall.updateCard(appSettings: AppSettings) =
     processV1<CardUpdateRequest, CardUpdateResponse>(appSettings, clUpdate, "update")
 
-val clDelete: KClass<*> = ApplicationCall::deleteAd::class
-suspend fun ApplicationCall.deleteAd(appSettings: AppSettings) =
+val clDelete: KClass<*> = ApplicationCall::deleteCard::class
+suspend fun ApplicationCall.deleteCard(appSettings: AppSettings) =
     processV1<CardDeleteRequest, CardDeleteResponse>(appSettings, clDelete, "delete")
 
-val clSearch: KClass<*> = ApplicationCall::searchAd::class
-suspend fun ApplicationCall.searchAd(appSettings: AppSettings) =
+val clSearch: KClass<*> = ApplicationCall::searchCard::class
+suspend fun ApplicationCall.searchCard(appSettings: AppSettings) =
     processV1<CardSearchRequest, CardSearchResponse>(appSettings, clSearch, "search")
 
-val clOffers: KClass<*> = ApplicationCall::offersAd::class
-suspend fun ApplicationCall.offersAd(appSettings: AppSettings) =
+val clOffers: KClass<*> = ApplicationCall::offersCard::class
+suspend fun ApplicationCall.offersCard(appSettings: AppSettings) =
     processV1<CardOffersRequest, CardOffersResponse>(appSettings, clOffers, "offers")
 
 

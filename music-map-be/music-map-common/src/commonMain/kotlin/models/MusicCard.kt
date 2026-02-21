@@ -10,7 +10,7 @@ data class MusicCard(
     var streamingInfo: MutableList<MusicStreamingInfo> = mutableListOf(),
     var geoInfo: MusicGeoInfo = MusicGeoInfo.NONE,
     var visibility: MusicCardVisibility = MusicCardVisibility.NONE,
-    var lock: MusicCardLock = MusicCardLock.NONE,
+    var lock: EntityLock = EntityLock.NONE,
 
     val permissionsClient: MutableSet<MusicCardPermissionClient> = mutableSetOf(),
 ) {

@@ -25,6 +25,11 @@ fun MusicContext.fail(error: MusicError) {
     state = MusicState.FAILING
 }
 
+fun MusicContext.fail(error: Collection<MusicError>) {
+    addError(*error.toTypedArray())
+    state = MusicState.FAILING
+}
+
 @JvmName("commonFail")
 fun fail(context: MusicContext, error: MusicError) {
     context.addError(error)
@@ -46,4 +51,16 @@ fun errorValidation(
     group = "validation",
     message = "Validation error for field $field: $description",
     level = level,
+)
+
+fun errorSystem(
+    violationCode: String,
+    level: LogLevel = LogLevel.ERROR,
+    e: Throwable,
+) = MusicError(
+    code = "system-$violationCode",
+    group = "system",
+    message = "System error occurred. Our stuff has been informed, please retry later",
+    level = level,
+    exception = e,
 )

@@ -16,7 +16,7 @@ import com.serkomma.models.StreamingInfo
 import com.serkomma.musicmap.common.MusicContext
 import com.serkomma.musicmap.common.models.MusicCard
 import com.serkomma.musicmap.common.models.MusicCardId
-import com.serkomma.musicmap.common.models.MusicCardLock
+import com.serkomma.musicmap.common.models.EntityLock
 import com.serkomma.musicmap.common.models.MusicCardPermissionClient
 import com.serkomma.musicmap.common.models.MusicCardVisibility
 import com.serkomma.musicmap.common.models.MusicCommand
@@ -91,12 +91,12 @@ internal fun MusicCard.toTransport(): CardResponseObject =
         streaming = streamingInfo.takeIf { it.isNotEmpty() }?.map { it.toTransport() }?.toSet(),
         place = geoInfo.toTransport(),
         visibility = visibility.toTransport(),
-        ownerId = ownerId.takeIf { it != MusicUserId.NONE }?.userId,
+        ownerId = ownerId.takeIf { it != MusicUserId.NONE }?.value,
         permissions = permissionsClient.toTransport(),
-        lock = lock.takeIf { it != MusicCardLock.NONE }?.toString()
+        lock = lock.takeIf { it != EntityLock.NONE }?.toString()
     )
 
-internal fun MusicCardId.toTransport() = takeIf { it != MusicCardId.NONE }?.id
+internal fun MusicCardId.toTransport() = takeIf { it != MusicCardId.NONE }?.value
 
 private fun Set<MusicCardPermissionClient>.toTransport(): Set<CardPermissions>? = this
     .map { it.toTransport() }

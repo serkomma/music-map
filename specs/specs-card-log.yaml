@@ -116,6 +116,12 @@ components:
           type: string
         request:
           $ref: '#/components/schemas/CommonSearchLog'
+        ownerId:
+          type: string
+        coordinatesFrom:
+          type: string
+        coordinatesTo:
+          type: string
 
     CommonSearchLog:
       title: Search model log

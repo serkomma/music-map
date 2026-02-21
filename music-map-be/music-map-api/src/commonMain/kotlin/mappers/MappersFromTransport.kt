@@ -26,7 +26,7 @@ import com.serkomma.models.StreamingInfo
 import com.serkomma.musicmap.common.models.MusicCard
 import com.serkomma.musicmap.common.models.MusicCardFilter
 import com.serkomma.musicmap.common.models.MusicCardId
-import com.serkomma.musicmap.common.models.MusicCardLock
+import com.serkomma.musicmap.common.models.EntityLock
 import com.serkomma.musicmap.common.models.MusicCardVisibility
 import com.serkomma.musicmap.common.models.MusicCommand
 import com.serkomma.musicmap.common.models.MusicFilterStore
@@ -39,6 +39,7 @@ import com.serkomma.musicmap.common.models.MusicSorterStore
 import com.serkomma.musicmap.common.models.MusicSortingDirection
 import com.serkomma.musicmap.common.models.MusicStreamingInfo
 import com.serkomma.musicmap.common.models.MusicStreamingService
+import com.serkomma.musicmap.common.models.MusicUserId
 import com.serkomma.musicmap.common.models.MusicWorkMode
 import com.serkomma.musicmap.common.stubs.MusicStubs
 
@@ -111,7 +112,7 @@ private fun CardDeleteObject?.fromTransport() =
     this?.let {
         MusicCard(
             id = id?.let { MusicCardId(it) } ?: MusicCardId.NONE,
-            lock = lock?.let { MusicCardLock(it) } ?: MusicCardLock.NONE,
+            lock = lock?.let { EntityLock(it) } ?: EntityLock.NONE,
         )
     } ?: MusicCard()
 
@@ -136,7 +137,7 @@ private fun CardUpdateObject?.fromTransport() =
     } ?: MusicCard()
 
 private fun Long?.toCardId() = this?.let { MusicCardId(it) } ?: MusicCardId.NONE
-private fun String?.toCardLock() = this?.let { MusicCardLock(it) } ?: MusicCardLock.NONE
+private fun String?.toCardLock() = this?.let { EntityLock(it) } ?: EntityLock.NONE
 
 private fun Genre.fromTransport() =
     when (this) {
@@ -169,7 +170,10 @@ private fun CardSearchFilter?.fromTransport() =
     this?.let {
         MusicCardFilter(
             searchString = searchString ?: "",
-            searchRequest = request.fromTransport()
+            filterRequest = filter.fromTransport(),
+            ownerId = ownerId?.let { MusicUserId(it) } ?: MusicUserId.NONE,
+            coordinatesFrom = coordinatesFrom.fromTransport(),
+            coordinatesTo = coordinatesTo.fromTransport(),
         )
     } ?: MusicCardFilter()
 
