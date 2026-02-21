@@ -21,3 +21,4 @@ pluginManagement {
 
 include(":music-map-lib-logging-common")
 include(":music-map-lib-logging-kermit")
+include(":music-map-lib-cor")

@@ -33,7 +33,7 @@ class V1StubApiTest {
                         "    \"stub\" : \"success\"\n" +
                         "  },\n" +
                         "  \"card\" : {\n" +
-                        "    \"title\" : \"title1\",\n" +
+                        "    \"title\" : \"Muse\",\n" +
                         "    \"description\" : \"description1\",\n" +
                         "    \"message\" : \"message\",\n" +
                         "    \"genre\" : \"rock\",\n" +

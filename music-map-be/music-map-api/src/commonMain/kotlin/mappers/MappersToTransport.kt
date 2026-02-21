@@ -11,7 +11,6 @@ import com.serkomma.models.CardUpdateResponse
 import com.serkomma.models.CardVisibility
 import com.serkomma.models.Genre
 import com.serkomma.models.GeoInfo
-import com.serkomma.models.IResponse
 import com.serkomma.models.ResponseResult
 import com.serkomma.models.StreamingInfo
 import com.serkomma.musicmap.common.MusicContext
@@ -24,6 +23,8 @@ import com.serkomma.musicmap.common.models.MusicCommand
 import com.serkomma.musicmap.common.models.MusicError
 import com.serkomma.musicmap.common.models.MusicGenre
 import com.serkomma.musicmap.common.models.MusicGeoInfo
+import com.serkomma.musicmap.common.models.MusicGeoLatitude
+import com.serkomma.musicmap.common.models.MusicGeoLongitude
 import com.serkomma.musicmap.common.models.MusicState
 import com.serkomma.musicmap.common.models.MusicStreamingInfo
 import com.serkomma.musicmap.common.models.MusicUserId
@@ -87,7 +88,7 @@ internal fun MusicCard.toTransport(): CardResponseObject =
         description = description.takeIf { it.isNotBlank() },
         message = message.takeIf { it.isNotBlank() },
         genre = genre.toTransport(),
-        streaming = streamingInfo.map { it.toTransport() }.toSet(),
+        streaming = streamingInfo.takeIf { it.isNotEmpty() }?.map { it.toTransport() }?.toSet(),
         place = geoInfo.toTransport(),
         visibility = visibility.toTransport(),
         ownerId = ownerId.takeIf { it != MusicUserId.NONE }?.userId,
@@ -149,7 +150,9 @@ internal fun MusicStreamingInfo.toTransport() =
     )
 
 internal fun MusicGeoInfo.toTransport() =
-    GeoInfo(
-        latitude = latitude.latitude,
-        longitude = longitude.longitude
-    )
+    this.takeIf { it.latitude != MusicGeoLatitude.NONE && it.longitude != MusicGeoLongitude.NONE }?.let {
+        GeoInfo(
+            latitude = latitude.value,
+            longitude = longitude.value
+        )
+    }

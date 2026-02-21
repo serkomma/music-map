@@ -14,7 +14,6 @@ import com.serkomma.musicmap.common.models.MusicError
 import com.serkomma.musicmap.common.models.MusicFilterStore
 import com.serkomma.musicmap.common.models.MusicRequestId
 import com.serkomma.musicmap.common.models.MusicSearchRequest
-import com.serkomma.musicmap.common.models.MusicSorterStore
 import com.serkomma.musicmap.common.models.MusicUserId
 import kotlinx.datetime.Clock
 
@@ -47,7 +46,7 @@ private fun MusicSearchRequest.toLog() = CommonSearchLog(
     limit = limit.toString(),
     page = page.toString(),
     sort = sort.toString(),
-    filter = filter.toLog(),
+    filter = filter.map { it.toLog() },
 )
 
 private fun MusicFilterStore.toLog() = CommonFilterLog(

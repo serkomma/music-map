@@ -3,11 +3,11 @@ package com.serkomma.musicmap.common.models
 import kotlin.jvm.JvmInline
 
 @JvmInline
-value class MusicGeoLongitude(val longitude: Double){
+value class MusicGeoLongitude(val value: Double){
     init {
-        if (!longitude.isNaN()) {
-            require(longitude >= -180) { "Latitude must be above or equal -90: $longitude" }
-            require(longitude <= 180) { "Latitude must be below or equal 90: $longitude" }
+        if (!value.isNaN()) {
+            require(value >= -180) { "Latitude must be above or equal -90: $value" }
+            require(value <= 180) { "Latitude must be below or equal 90: $value" }
         }
     }
 

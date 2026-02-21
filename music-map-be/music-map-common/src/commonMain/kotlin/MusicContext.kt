@@ -14,6 +14,7 @@ data class MusicContext(
     var state: MusicState = MusicState.NONE,
     val errors: MutableList<MusicError> = mutableListOf(),
 
+    var corSettings: MusicCorSettings = MusicCorSettings(),
     var workMode: MusicWorkMode = MusicWorkMode.PROD,
     var stubCase: MusicStubs = MusicStubs.NONE,
 
