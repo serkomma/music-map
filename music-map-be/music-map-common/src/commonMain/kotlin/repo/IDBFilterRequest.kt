@@ -13,6 +13,6 @@ data class DBCardFilterRequest(
     override val searchString: String? = null,
     override val filter: MusicSearchRequest? = null,
     val ownerId: MusicUserId = MusicUserId.NONE,
-    val coordinatesFrom: MusicGeoInfo? = MusicGeoInfo.NONE,
-    val coordinatesTo: MusicGeoInfo? = MusicGeoInfo.NONE,
+    val coordinatesFrom: MusicGeoInfo = MusicGeoInfo.NONE,
+    val coordinatesTo: MusicGeoInfo = MusicGeoInfo.NONE,
 ) : IDBFilterRequest
