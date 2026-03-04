@@ -39,6 +39,9 @@ kotlin {
                 implementation(project(":music-map-app-common"))
                 implementation(project(":music-map-stubs"))
                 implementation(project(":music-map-biz"))
+                implementation(project(":music-map-repo-common"))
+                implementation(project(":music-map-repo-inmemory"))
+                implementation(project(":music-map-repo-postgres"))
                 api("com.serkomma.musicmap.libs:music-map-lib-logging-kermit")
             }
         }
@@ -53,18 +56,21 @@ kotlin {
             }
         }
 
-        val jvmMain by getting {
+        jvmMain {
             dependencies {
                 implementation(libs.ktor.server.call.logging)
                 implementation(libs.h2)
             }
         }
 
-        val jvmTest by getting {
+        jvmTest {
             dependencies {
                 implementation(kotlin("test-junit"))
             }
         }
+        nativeMain { dependsOn(commonMain.get()) }
+        linuxX64Main { dependsOn(nativeMain.get()) }
+        mingwX64Main { dependsOn(nativeMain.get()) }
     }
 }
 

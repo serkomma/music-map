@@ -3,7 +3,7 @@ package com.serkomma.musicmap.biz.validation
 import com.serkomma.musicmap.biz.MusicCardProcessor
 import com.serkomma.musicmap.common.MusicContext
 import com.serkomma.musicmap.common.models.MusicCard
-import com.serkomma.musicmap.common.models.MusicCardLock
+import com.serkomma.musicmap.common.models.EntityLock
 import com.serkomma.musicmap.common.models.MusicCardVisibility
 import com.serkomma.musicmap.common.models.MusicCommand
 import com.serkomma.musicmap.common.models.MusicGenre
@@ -29,7 +29,7 @@ fun validationDescriptionCorrect(command: MusicCommand, processor: MusicCardProc
             title = "abc",
             description = "abc",
             visibility = MusicCardVisibility.PUBLIC,
-            lock = MusicCardLock("OXOXO"),
+            lock = EntityLock("OXOXO"),
             genre = MusicGenre.ROCK,
             geoInfo = MusicGeoInfo(MusicGeoLatitude(10.0), MusicGeoLongitude(10.0)),
         ),
@@ -50,7 +50,7 @@ fun validationDescriptionTrim(command: MusicCommand, processor: MusicCardProcess
             title = "abc",
             description = " \n\tabc \n\t",
             visibility = MusicCardVisibility.PUBLIC,
-            lock = MusicCardLock("OXOXO"),
+            lock = EntityLock("OXOXO"),
             genre = MusicGenre.ROCK,
             geoInfo = MusicGeoInfo(MusicGeoLatitude(10.0), MusicGeoLongitude(10.0)),
         ),
@@ -71,7 +71,7 @@ fun validationDescriptionEmpty(command: MusicCommand, processor: MusicCardProces
             title = "abc",
             description = "",
             visibility = MusicCardVisibility.PUBLIC,
-            lock = MusicCardLock("OXOXO"),
+            lock = EntityLock("OXOXO"),
             genre = MusicGenre.ROCK,
             geoInfo = MusicGeoInfo(MusicGeoLatitude(10.0), MusicGeoLongitude(10.0)),
         ),
@@ -94,7 +94,7 @@ fun validationDescriptionSymbols(command: MusicCommand, processor: MusicCardProc
             title = "abc",
             description = "!@#$%^&*(),.{}",
             visibility = MusicCardVisibility.PUBLIC,
-            lock = MusicCardLock("OXOXO"),
+            lock = EntityLock("OXOXO"),
             genre = MusicGenre.ROCK,
             geoInfo = MusicGeoInfo(MusicGeoLatitude(10.0), MusicGeoLongitude(10.0)),
         ),

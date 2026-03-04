@@ -12,7 +12,7 @@ import com.serkomma.musicmap.libs.cor.worker
 
 private val OPERATORS = listOf("eq", "ne", "in")
 
-fun ICorChainDsl<MusicCardFilter>.validateSearchString(title: String, context: MusicContext) = chain {
+fun ICorChainDsl<MusicCardFilter>.validateSearchStringAndFilter(title: String, context: MusicContext) = chain {
     this.title = title
     this.description = """
         Валидация длины строки поиска в поисковых фильтрах. Допустимые значения:
@@ -54,7 +54,7 @@ fun ICorChainDsl<MusicCardFilter>.validateSearchString(title: String, context: M
         handle {
             rootChain {
                 validateFilter("Check filters", context)
-            }.build().exec(context.cardFilterRequest.searchRequest)
+            }.build().exec(context.cardFilterRequest.filterRequest)
         }
     }
 }

@@ -4,7 +4,7 @@ import com.serkomma.musicmap.biz.MusicCardProcessor
 import com.serkomma.musicmap.common.MusicContext
 import com.serkomma.musicmap.common.models.MusicCard
 import com.serkomma.musicmap.common.models.MusicCardId
-import com.serkomma.musicmap.common.models.MusicCardLock
+import com.serkomma.musicmap.common.models.EntityLock
 import com.serkomma.musicmap.common.models.MusicCardVisibility
 import com.serkomma.musicmap.common.models.MusicCommand
 import com.serkomma.musicmap.common.models.MusicGenre
@@ -30,7 +30,7 @@ fun validationTitleCorrect(command: MusicCommand, processor: MusicCardProcessor)
             title = "abc",
             description = "abc",
             visibility = MusicCardVisibility.PUBLIC,
-            lock = MusicCardLock("123-234-abc-ABC"),
+            lock = EntityLock("123-234-abc-ABC"),
             genre = MusicGenre.ROCK,
             geoInfo = MusicGeoInfo(MusicGeoLatitude(10.0), MusicGeoLongitude(10.0)),
         ),
@@ -51,7 +51,7 @@ fun validationTitleTrim(command: MusicCommand, processor: MusicCardProcessor) = 
             title = " \n\t abc \t\n ",
             description = "abc",
             visibility = MusicCardVisibility.PUBLIC,
-            lock = MusicCardLock("123-234-abc-ABC"),
+            lock = EntityLock("123-234-abc-ABC"),
             genre = MusicGenre.ROCK,
             geoInfo = MusicGeoInfo(MusicGeoLatitude(10.0), MusicGeoLongitude(10.0)),
         ),
@@ -72,7 +72,7 @@ fun validationTitleEmpty(command: MusicCommand, processor: MusicCardProcessor) =
             title = "",
             description = "abc",
             visibility = MusicCardVisibility.PUBLIC,
-            lock = MusicCardLock("123-234-abc-ABC"),
+            lock = EntityLock("123-234-abc-ABC"),
             genre = MusicGenre.ROCK,
             geoInfo = MusicGeoInfo(MusicGeoLatitude(10.0), MusicGeoLongitude(10.0)),
         ),
@@ -95,7 +95,7 @@ fun validationTitleSymbols(command: MusicCommand, processor: MusicCardProcessor)
             title = "!@#$%^&*(),.{}",
             description = "abc",
             visibility = MusicCardVisibility.PUBLIC,
-            lock = MusicCardLock("123-234-abc-ABC"),
+            lock = EntityLock("123-234-abc-ABC"),
             genre = MusicGenre.ROCK,
             geoInfo = MusicGeoInfo(MusicGeoLatitude(10.0), MusicGeoLongitude(10.0)),
         ),

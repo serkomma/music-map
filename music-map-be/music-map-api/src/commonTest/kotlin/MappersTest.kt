@@ -9,7 +9,7 @@ import com.serkomma.models.CardUpdateRequest
 import com.serkomma.models.CardUpdateResponse
 import com.serkomma.musicmap.common.MusicContext
 import com.serkomma.musicmap.common.models.MusicCardId
-import com.serkomma.musicmap.common.models.MusicCardLock
+import com.serkomma.musicmap.common.models.EntityLock
 import com.serkomma.musicmap.common.models.MusicCommand
 import com.serkomma.musicmap.common.models.MusicError
 import com.serkomma.musicmap.common.models.MusicRequestId
@@ -38,7 +38,7 @@ class MappersTest {
         val expected = CardStub.prepareResult {
             id = MusicCardId.NONE
             ownerId = MusicUserId.NONE
-            lock = MusicCardLock.NONE
+            lock = EntityLock.NONE
             permissionsClient.clear()
         }
 

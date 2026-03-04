@@ -15,7 +15,7 @@ class ValidateFiltersTest {
     fun emptyFilter() = runTest {
         val ctx = MusicContext(
             state = MusicState.RUNNING,
-            cardFilterRequest = MusicCardFilter(searchRequest = MusicSearchRequest.Companion.NONE)
+            cardFilterRequest = MusicCardFilter(filterRequest = MusicSearchRequest.Companion.NONE)
         )
         chain(ctx).exec(ctx)
         assertEquals(MusicState.RUNNING, ctx.state)
@@ -26,7 +26,7 @@ class ValidateFiltersTest {
     fun rightFilter() = runTest {
         val ctx = MusicContext(
             state = MusicState.RUNNING,
-            cardFilterRequest = MusicCardFilter(searchRequest = rightSearch)
+            cardFilterRequest = MusicCardFilter(filterRequest = rightSearch)
         )
         chain(ctx).exec(ctx)
         assertEquals(MusicState.RUNNING, ctx.state)
@@ -37,7 +37,7 @@ class ValidateFiltersTest {
     fun wrongPage() = runTest {
         val ctx = MusicContext(
             state = MusicState.RUNNING,
-            cardFilterRequest = MusicCardFilter(searchRequest = rightSearch.copy(page = 0))
+            cardFilterRequest = MusicCardFilter(filterRequest = rightSearch.copy(page = 0))
         )
         chain(ctx).exec(ctx)
         assertEquals(MusicState.FAILING, ctx.state)
@@ -49,7 +49,7 @@ class ValidateFiltersTest {
     fun wrongLimit() = runTest {
         val ctx = MusicContext(
             state = MusicState.RUNNING,
-            cardFilterRequest = MusicCardFilter(searchRequest = rightSearch.copy(limit = -1))
+            cardFilterRequest = MusicCardFilter(filterRequest = rightSearch.copy(limit = -1))
         )
         chain(ctx).exec(ctx)
         assertEquals(MusicState.FAILING, ctx.state)
@@ -62,7 +62,7 @@ class ValidateFiltersTest {
         val ctx = MusicContext(
             state = MusicState.RUNNING,
             cardFilterRequest = MusicCardFilter(
-                searchRequest = rightSearch.copy(filter = mutableListOf(rightFilter.copy(field = "")))
+                filterRequest = rightSearch.copy(filter = mutableListOf(rightFilter.copy(field = "")))
             )
         )
         chain(ctx).exec(ctx)
@@ -76,7 +76,7 @@ class ValidateFiltersTest {
         val ctx = MusicContext(
             state = MusicState.RUNNING,
             cardFilterRequest = MusicCardFilter(
-                searchRequest = rightSearch.copy(filter = mutableListOf(rightFilter.copy(operator = "")))
+                filterRequest = rightSearch.copy(filter = mutableListOf(rightFilter.copy(operator = "")))
             )
         )
         chain(ctx).exec(ctx)
@@ -90,7 +90,7 @@ class ValidateFiltersTest {
         val ctx = MusicContext(
             state = MusicState.RUNNING,
             cardFilterRequest = MusicCardFilter(
-                searchRequest = rightSearch.copy(filter = mutableListOf(rightFilter.copy(operator = "na")))
+                filterRequest = rightSearch.copy(filter = mutableListOf(rightFilter.copy(operator = "na")))
             )
         )
         chain(ctx).exec(ctx)
@@ -104,7 +104,7 @@ class ValidateFiltersTest {
         val ctx = MusicContext(
             state = MusicState.RUNNING,
             cardFilterRequest = MusicCardFilter(
-                searchRequest = rightSearch.copy(filter = mutableListOf(rightFilter.copy(values = mutableListOf())))
+                filterRequest = rightSearch.copy(filter = mutableListOf(rightFilter.copy(values = mutableListOf())))
             )
         )
         chain(ctx).exec(ctx)

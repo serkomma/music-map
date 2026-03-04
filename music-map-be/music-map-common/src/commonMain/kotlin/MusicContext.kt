@@ -1,13 +1,15 @@
 package com.serkomma.musicmap.common
 import com.serkomma.musicmap.common.models.MusicCard
 import com.serkomma.musicmap.common.models.MusicCardFilter
+import com.serkomma.musicmap.common.models.MusicCardId
 import com.serkomma.musicmap.common.models.MusicCommand
 import com.serkomma.musicmap.common.models.MusicError
 import com.serkomma.musicmap.common.models.MusicRequestId
 import com.serkomma.musicmap.common.models.MusicState
 import com.serkomma.musicmap.common.models.MusicWorkMode
+import com.serkomma.musicmap.common.repo.IRepo
 import com.serkomma.musicmap.common.stubs.MusicStubs
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 data class MusicContext(
     var command: MusicCommand = MusicCommand.NONE,
@@ -22,6 +24,9 @@ data class MusicContext(
     var timeStart: Instant = Instant.NONE,
     var cardRequest: MusicCard = MusicCard(),
     var cardFilterRequest: MusicCardFilter = MusicCardFilter(),
+
+    var cardRepo: IRepo<MusicCard, MusicCardId> = IRepo.none(),
+    var cardRepoRead: MusicCard = MusicCard(),
 
     var cardResponse: MusicCard = MusicCard(),
     var cardsResponse: MutableList<MusicCard> = mutableListOf(),

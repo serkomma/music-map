@@ -1,5 +1,6 @@
 plugins {
     id("multiplatform-plugin")
+    alias(libs.plugins.muschko.remote) apply false
 }
 
 group = "com.serkomma.musicmap"
@@ -23,6 +24,10 @@ dependencies {
     commonMainImplementation(project(":music-map-app-ktor"))
     commonMainImplementation(project(":music-map-stubs"))
     commonMainImplementation(project(":music-map-app-common"))
+    commonMainImplementation(project(":music-map-repo-common"))
+    commonMainImplementation(project(":music-map-repo-inmemory"))
+    commonMainImplementation(project(":music-map-repo-postgres"))
+    commonMainImplementation(project(":music-map-repo-tests"))
 }
 
 ext {

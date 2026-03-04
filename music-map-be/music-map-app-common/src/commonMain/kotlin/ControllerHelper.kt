@@ -4,7 +4,7 @@ import com.serkomma.musicmap.common.MusicContext
 import com.serkomma.musicmap.common.helpers.asMusicError
 import com.serkomma.musicmap.common.models.MusicCommand
 import com.serkomma.musicmap.common.models.MusicState
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 import toLog
 import kotlin.reflect.KClass
 

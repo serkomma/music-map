@@ -4,7 +4,7 @@ import com.serkomma.musicmap.biz.MusicCardProcessor
 import com.serkomma.musicmap.common.MusicContext
 import com.serkomma.musicmap.common.models.MusicCard
 import com.serkomma.musicmap.common.models.MusicCardId
-import com.serkomma.musicmap.common.models.MusicCardLock
+import com.serkomma.musicmap.common.models.EntityLock
 import com.serkomma.musicmap.common.models.MusicCardVisibility
 import com.serkomma.musicmap.common.models.MusicCommand
 import com.serkomma.musicmap.common.models.MusicGenre
@@ -28,7 +28,7 @@ fun validationIdCorrect(command: MusicCommand, processor: MusicCardProcessor) = 
             title = "abc",
             description = "abc",
             visibility = MusicCardVisibility.PUBLIC,
-            lock = MusicCardLock("OXOXO"),
+            lock = EntityLock("OXOXO"),
             genre = MusicGenre.ROCK,
             geoInfo = MusicGeoInfo(MusicGeoLatitude(10.0), MusicGeoLongitude(10.0)),
         ),
@@ -48,7 +48,7 @@ fun validationIdTrim(command: MusicCommand, processor: MusicCardProcessor) = run
             title = "abc",
             description = "abc",
             visibility = MusicCardVisibility.PUBLIC,
-            lock = MusicCardLock("OXOXO"),
+            lock = EntityLock("OXOXO"),
             genre = MusicGenre.ROCK,
             geoInfo = MusicGeoInfo(MusicGeoLatitude(10.0), MusicGeoLongitude(10.0)),
         ),
@@ -68,7 +68,7 @@ fun validationIdEmpty(command: MusicCommand, processor: MusicCardProcessor) = ru
             title = "abc",
             description = "abc",
             visibility = MusicCardVisibility.PUBLIC,
-            lock = MusicCardLock("OXOXO"),
+            lock = EntityLock("OXOXO"),
             genre = MusicGenre.ROCK,
             geoInfo = MusicGeoInfo(MusicGeoLatitude(10.0), MusicGeoLongitude(10.0)),
         ),

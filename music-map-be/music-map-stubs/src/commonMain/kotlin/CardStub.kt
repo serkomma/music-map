@@ -1,7 +1,7 @@
 import com.serkomma.musicmap.common.models.MusicCard
 import com.serkomma.musicmap.common.models.MusicCardFilter
 import com.serkomma.musicmap.common.models.MusicCardId
-import com.serkomma.musicmap.common.models.MusicCardLock
+import com.serkomma.musicmap.common.models.EntityLock
 import com.serkomma.musicmap.common.models.MusicCardPermissionClient
 import com.serkomma.musicmap.common.models.MusicCardVisibility
 import com.serkomma.musicmap.common.models.MusicGenre
@@ -17,7 +17,7 @@ object CardStub {
 
     fun prepareResult(block: MusicCard.() -> Unit): MusicCard = get().apply(block)
 
-    fun prepareSearchList(filter: MusicCardFilter) = MUSIC_CARD_LIST
+    fun prepareSearchList(filter: MusicCardFilter = MusicCardFilter.NONE) = MUSIC_CARD_LIST
 
     fun prepareOffersList() = MUSIC_CARD_LIST
 
@@ -40,7 +40,7 @@ object CardStub {
                 longitude = MusicGeoLongitude(40.04),
             ),
             visibility = MusicCardVisibility.PUBLIC,
-            lock = MusicCardLock("Lock"),
+            lock = EntityLock("Lock"),
             permissionsClient = mutableSetOf(
                 MusicCardPermissionClient.READ,
                 MusicCardPermissionClient.UPDATE,

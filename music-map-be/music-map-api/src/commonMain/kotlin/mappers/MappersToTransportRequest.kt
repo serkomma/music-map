@@ -5,7 +5,7 @@ import com.serkomma.models.CardDeleteObject
 import com.serkomma.models.CardReadObject
 import com.serkomma.models.CardUpdateObject
 import com.serkomma.musicmap.common.models.MusicCard
-import com.serkomma.musicmap.common.models.MusicCardLock
+import com.serkomma.musicmap.common.models.EntityLock
 
 fun MusicCard.toTransportCreateCard() = CardCreateObject(
     title = title,
@@ -33,7 +33,7 @@ fun MusicCard.toTransportUpdateCard() = CardUpdateObject(
     lock = lock.toTransport(),
 )
 
-internal fun MusicCardLock.toTransport() = takeIf { it != MusicCardLock.NONE }.toString()
+internal fun EntityLock.toTransport() = takeIf { it != EntityLock.NONE }.toString()
 
 fun MusicCard.toTransportDeleteCard() = CardDeleteObject(
     id = id.toTransport(),

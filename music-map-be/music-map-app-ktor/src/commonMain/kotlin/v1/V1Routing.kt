@@ -8,22 +8,22 @@ import io.ktor.server.routing.route
 fun Route.v1Card(appSettings: AppSettings) {
     route("card"){
         post("create") {
-            call.createAd(appSettings)
+            call.createCard(appSettings)
         }
         post("read") {
-            call.readAd(appSettings)
+            call.readCard(appSettings)
         }
         post("update") {
-            call.updateAd(appSettings)
+            call.updateCard(appSettings)
         }
         post("delete") {
-            call.deleteAd(appSettings)
+            call.deleteCard(appSettings)
         }
         post("search") {
-            call.searchAd(appSettings)
+            call.searchCard(appSettings)
         }
         post("offers") {
-            call.offersAd(appSettings)
+            call.offersCard(appSettings)
         }
     }
 }

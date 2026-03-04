@@ -482,8 +482,14 @@ components:
       properties:
         searchString:
           type: string
-        request:
+        filter:
           $ref: '#/components/schemas/SearchRequest'
+        ownerId:
+          $ref: '#/components/schemas/UserId'
+        coordinatesFrom:
+          $ref: '#/components/schemas/GeoInfo'
+        coordinatesTo:
+          $ref: '#/components/schemas/GeoInfo'
 
     CardSearchRequest:
       allOf:

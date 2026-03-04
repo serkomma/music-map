@@ -136,7 +136,7 @@ fun ICorChainDsl<MusicContext>.validateGeoInfo(title: String) = chain {
         }
     }
     worker {
-        on { cardRequest.geoInfo.longitude.value < -90 || cardRequest.geoInfo.longitude.value > 90 }
+        on { cardRequest.geoInfo.longitude.value < -180 || cardRequest.geoInfo.longitude.value > 180 }
         handle {
             fail(
                 errorValidation(
@@ -179,7 +179,7 @@ fun ICorChainDsl<MusicContext>.validateLock(title: String) = chain {
     }
     worker {
         val regExp = Regex("^[0-9a-zA-Z-]+$")
-        on { cardRequest.lock != MusicCardLock.NONE && !cardRequest.lock.toString().matches(regExp) }
+        on { cardRequest.lock != EntityLock.NONE && !cardRequest.lock.toString().matches(regExp) }
         handle {
             fail(
                 errorValidation(
@@ -192,58 +192,42 @@ fun ICorChainDsl<MusicContext>.validateLock(title: String) = chain {
     }
 }
 
-fun ICorChainDsl<MusicContext>.validateSearch(title: String) = worker{
-    on { cardFilterRequest != MusicCardFilter.NONE }
-    handle {
-        rootChain {
-            validateSearchString("Check filters", this@handle)
-        }.build().exec(this@handle.cardFilterRequest)
+fun ICorChainDsl<MusicContext>.validateSearch(title: String) = chain {
+    worker {
+        this.title = title
+        on { cardFilterRequest != MusicCardFilter.NONE }
+        handle {
+            rootChain {
+                validateSearchStringAndFilter("Check filters", this@handle)
+            }.build().exec(this@handle.cardFilterRequest)
+        }
+    }
+    worker {
+        this.title = "Check search coordinates"
+        on { cardFilterRequest.coordinatesFrom != MusicCardFilter.NONE &&
+                cardFilterRequest.coordinatesTo == MusicCardFilter.NONE }
+        handle {
+            fail(
+                errorValidation(
+                    field = "coordinatesTo",
+                    violationCode = "empty",
+                    description = "both coordinatesFrom and coordinatesTo must be present"
+                )
+            )
+        }
+    }
+    worker {
+        this.title = "Check search coordinates"
+        on { cardFilterRequest.coordinatesTo != MusicCardFilter.NONE &&
+                cardFilterRequest.coordinatesFrom == MusicCardFilter.NONE }
+        handle {
+            fail(
+                errorValidation(
+                    field = "coordinatesFrom",
+                    violationCode = "empty",
+                    description = "both coordinatesFrom and coordinatesTo must be present"
+                )
+            )
+        }
     }
 }
-
-//fun ICorChainDsl<MusicCardFilter>.validateSearchStringLength1(title: String) = chain {
-//    this.title = title
-//    this.description = """
-//        Валидация длины строки поиска в поисковых фильтрах. Допустимые значения:
-//        - null - не выполняем поиск по строке
-//        - 3-100 - допустимая длина
-//        - больше 100 - слишком длинная строка
-//    """.trimIndent()
-//    on { state == MusicState.RUNNING }
-//    worker("Обрезка пустых символов") { cardFilterRequest.searchString = cardFilterRequest.searchString.trim() }
-//    worker {
-//        this.title = "Проверка кейса длины на 0-2 символа"
-//        on { state == MusicState.RUNNING && cardFilterRequest.searchString.length in (1..2) }
-//        handle {
-//            fail(
-//                errorValidation(
-//                    field = "searchString",
-//                    violationCode = "tooShort",
-//                    description = "Search string must contain at least 3 symbols"
-//                )
-//            )
-//        }
-//    }
-//    worker {
-//        this.title = "Проверка кейса длины на более 100 символов"
-//        on { state == MusicState.RUNNING && cardFilterRequest.searchString.length > 100 }
-//        handle {
-//            fail(
-//                errorValidation(
-//                    field = "searchString",
-//                    violationCode = "tooLong",
-//                    description = "Search string must be no more than 100 symbols long"
-//                )
-//            )
-//        }
-//    }
-//    worker {
-//        this.title = "Проверка фильтров"
-//        on { state == MusicState.RUNNING && cardFilterRequest.searchRequest != MusicSearchRequest.NONE }
-//        handle {
-//            rootChain {
-//                validateFilter("Check filters", this@handle)
-//            }.build().exec(cardFilterRequest.searchRequest)
-//        }
-//    }
-//}
